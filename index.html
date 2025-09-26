@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WineShop - Sua Loja de Vinhos</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="logo">
+          <h1><i class="fas fa-wine-bottle"></i> WineShop</h1>
+        </div>
+        <nav class="nav">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="carrinho.html" class="nav-link">
+            <i class="fas fa-shopping-cart"></i>
+            Carrinho (<span id="cart-count">0</span>)
+          </a>
+          <a href="admin.html" class="nav-link">
+            <i class="fas fa-cog"></i>
+            Admin
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Descubra os Melhores Vinhos</h2>
+        <p>Seleção premium de vinhos nacionais e importados</p>
+        <button
+          class="cta-button"
+          onclick="document.getElementById('produtos').scrollIntoView()"
+        >
+          Ver Catálogo
+        </button>
+      </div>
+    </section>
+
+    <!-- Produtos Section -->
+    <section id="produtos" class="produtos-section">
+      <div class="container">
+        <h2>Nossos Vinhos</h2>
+        <div class="filters">
+          <button class="filter-btn active" data-filter="todos">Todos</button>
+          <button class="filter-btn" data-filter="tinto">Tinto</button>
+          <button class="filter-btn" data-filter="branco">Branco</button>
+          <button class="filter-btn" data-filter="rosé">Rosé</button>
+          <button class="filter-btn" data-filter="espumante">Espumante</button>
+        </div>
+        <div id="produtos-grid" class="produtos-grid">
+          <!-- Produtos serão carregados via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3><i class="fas fa-wine-bottle"></i> WineShop</h3>
+            <p>Sua loja especializada em vinhos premium</p>
+          </div>
+          <div class="footer-section">
+            <h4>Contato</h4>
+            <p><i class="fas fa-envelope"></i> contato@wineshop.com</p>
+            <p><i class="fas fa-phone"></i> (11) 9999-9999</p>
+          </div>
+          <div class="footer-section">
+            <h4>Redes Sociais</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 WineShop. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de Produto -->
+    <div id="produto-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modal-body">
+          <!-- Conteúdo do produto será inserido aqui -->
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - WineShop</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="logo">
+          <h1><i class="fas fa-wine-bottle"></i> WineShop</h1>
+        </div>
+        <nav class="nav">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="carrinho.html" class="nav-link">
+            <i class="fas fa-shopping-cart"></i>
+            Carrinho (<span id="cart-count">0</span>)
+          </a>
+          <a href="admin.html" class="nav-link active">
+            <i class="fas fa-cog"></i>
+            Admin
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Admin Section -->
+    <section class="admin-section">
+      <div class="container">
+        <h2><i class="fas fa-cog"></i> Painel Administrativo</h2>
+
+        <div class="admin-container">
+          <!-- Formulário de Novo Produto -->
+          <div class="admin-card">
+            <h3><i class="fas fa-plus-circle"></i> Adicionar Novo Produto</h3>
+            <form id="produto-form" class="produto-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="nome">Nome do Vinho</label>
+                  <input type="text" id="nome" name="nome" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="preco">Preço (R$)</label>
+                  <input
+                    type="number"
+                    id="preco"
+                    name="preco"
+                    step="0.01"
+                    min="0"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="tipo">Tipo</label>
+                  <select id="tipo" name="tipo" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="tinto">Tinto</option>
+                    <option value="branco">Branco</option>
+                    <option value="rosé">Rosé</option>
+                    <option value="espumante">Espumante</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="pais">País</label>
+                  <input type="text" id="pais" name="pais" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="regiao">Região</label>
+                  <input type="text" id="regiao" name="regiao" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="ano">Ano</label>
+                  <input
+                    type="number"
+                    id="ano"
+                    name="ano"
+                    min="1900"
+                    max="2025"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="graduacao">Graduação Alcoólica (%)</label>
+                  <input
+                    type="number"
+                    id="graduacao"
+                    name="graduacao"
+                    step="0.1"
+                    min="0"
+                    max="20"
+                    required
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="volume">Volume (ml)</label>
+                  <input
+                    type="number"
+                    id="volume"
+                    name="volume"
+                    value="750"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="imagem">URL da Imagem</label>
+                <input
+                  type="url"
+                  id="imagem"
+                  name="imagem"
+                  placeholder="https://exemplo.com/imagem.jpg"
+                />
+              </div>
+
+              <div class="form-group full-width">
+                <label for="descricao">Descrição</label>
+                <textarea
+                  id="descricao"
+                  name="descricao"
+                  rows="4"
+                  placeholder="Descrição detalhada do vinho..."
+                ></textarea>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn-primary">
+                  <i class="fas fa-save"></i>
+                  <span id="btn-text">Adicionar Produto</span>
+                </button>
+                <button
+                  type="button"
+                  id="btn-cancelar"
+                  class="btn-secondary"
+                  style="display: none"
+                >
+                  <i class="fas fa-times"></i>
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Lista de Produtos -->
+          <div class="admin-card">
+            <h3><i class="fas fa-list"></i> Produtos Cadastrados</h3>
+            <div class="produtos-actions">
+              <div class="search-bar">
+                <input
+                  type="text"
+                  id="search-produtos"
+                  placeholder="Buscar produtos..."
+                />
+                <i class="fas fa-search"></i>
+              </div>
+              <button id="btn-export" class="btn-export">
+                <i class="fas fa-download"></i>
+                Exportar
+              </button>
+            </div>
+            <div id="produtos-lista" class="produtos-admin-lista">
+              <!-- Lista de produtos será carregada aqui -->
+            </div>
+          </div>
+
+          <!-- Estatísticas -->
+          <div class="admin-card">
+            <h3><i class="fas fa-chart-bar"></i> Estatísticas</h3>
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="fas fa-wine-bottle"></i>
+                </div>
+                <div class="stat-info">
+                  <h4 id="total-produtos">0</h4>
+                  <p>Total de Produtos</p>
+                </div>
+              </div>
+
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="stat-info">
+                  <h4 id="valor-medio">R$ 0,00</h4>
+                  <p>Preço Médio</p>
+                </div>
+              </div>
+
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-info">
+                  <h4 id="tipo-popular">-</h4>
+                  <p>Tipo Mais Popular</p>
+                </div>
+              </div>
+
+              <div class="stat-item">
+                <div class="stat-icon">
+                  <i class="fas fa-globe"></i>
+                </div>
+                <div class="stat-info">
+                  <h4 id="pais-popular">-</h4>
+                  <p>País Mais Popular</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal de Confirmação de Exclusão -->
+    <div id="delete-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><i class="fas fa-trash-alt"></i> Confirmar Exclusão</h3>
+          <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>Tem certeza que deseja excluir este produto?</p>
+          <p><strong id="produto-nome-delete"></strong></p>
+          <div class="modal-actions">
+            <button id="confirmar-delete" class="btn-danger">
+              Sim, Excluir
+            </button>
+            <button class="btn-secondary close">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3><i class="fas fa-wine-bottle"></i> WineShop</h3>
+            <p>Sua loja especializada em vinhos premium</p>
+          </div>
+          <div class="footer-section">
+            <h4>Contato</h4>
+            <p><i class="fas fa-envelope"></i> contato@wineshop.com</p>
+            <p><i class="fas fa-phone"></i> (11) 9999-9999</p>
+          </div>
+          <div class="footer-section">
+            <h4>Redes Sociais</h4>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 WineShop. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
