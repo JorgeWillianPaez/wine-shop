@@ -17,7 +17,8 @@ const produtosIniciais = [
     volume: 750,
     descricao:
       "Vinho tinto encorpado com notas de frutas vermelhas e especiarias.",
-    imagem: "",
+    imagem:
+      "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&h=600&fit=crop&auto=format",
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ const produtosIniciais = [
     volume: 750,
     descricao:
       "Vinho branco elegante com aromas cítricos e toques de carvalho.",
-    imagem: "",
+    imagem:
+      "https://images.unsplash.com/photo-1474722883778-792e7990302f?w=400&h=600&fit=crop&auto=format",
   },
   {
     id: 3,
@@ -44,20 +46,8 @@ const produtosIniciais = [
     graduacao: 14.0,
     volume: 750,
     descricao: "Vinho tinto intenso com sabores de ameixa e chocolate.",
-    imagem: "",
-  },
-  {
-    id: 4,
-    nome: "Prosecco Italiano",
-    preco: 68.9,
-    tipo: "espumante",
-    pais: "Itália",
-    regiao: "Veneto",
-    ano: 2022,
-    graduacao: 11.0,
-    volume: 750,
-    descricao: "Espumante fresco e delicado, perfeito para celebrações.",
-    imagem: "",
+    imagem:
+      "https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=400&h=600&fit=crop&auto=format",
   },
   {
     id: 5,
@@ -70,7 +60,22 @@ const produtosIniciais = [
     graduacao: 12.0,
     volume: 750,
     descricao: "Rosé seco e refrescante com notas de frutas vermelhas.",
-    imagem: "",
+    imagem:
+      "https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&h=600&fit=crop&auto=format",
+  },
+  {
+    id: 7,
+    nome: "Sauvignon Blanc",
+    preco: 68.0,
+    tipo: "branco",
+    pais: "Nova Zelândia",
+    regiao: "Marlborough",
+    ano: 2023,
+    graduacao: 12.5,
+    volume: 750,
+    descricao: "Branco fresco e mineral com notas herbáceas e cítricas.",
+    imagem:
+      "https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?w=400&h=600&fit=crop&auto=format",
   },
 ];
 
@@ -102,13 +107,24 @@ function inicializarApp() {
 }
 
 function carregarDados() {
-  // Carregar produtos do localStorage
-  const produtosSalvos = localStorage.getItem("wineshop_produtos");
-  if (produtosSalvos) {
-    produtos = JSON.parse(produtosSalvos);
-  } else {
+  // Forçar atualização dos produtos com imagens (versão 2.2)
+  const versaoAtual = "2.2";
+  const versaoSalva = localStorage.getItem("wineshop_versao");
+
+  if (versaoSalva !== versaoAtual) {
+    // Atualizar produtos com as novas imagens
     produtos = produtosIniciais;
+    localStorage.setItem("wineshop_versao", versaoAtual);
     salvarProdutos();
+  } else {
+    // Carregar produtos do localStorage
+    const produtosSalvos = localStorage.getItem("wineshop_produtos");
+    if (produtosSalvos) {
+      produtos = JSON.parse(produtosSalvos);
+    } else {
+      produtos = produtosIniciais;
+      salvarProdutos();
+    }
   }
 
   // Carregar carrinho do localStorage
@@ -226,38 +242,64 @@ function abrirModalProduto(produto) {
   const modalBody = document.getElementById("modal-body");
 
   const imagemHtml = produto.imagem
-    ? `<img src="${produto.imagem}" alt="${produto.nome}" style="width: 200px; height: 200px; object-fit: cover; border-radius: 10px;">`
-    : '<div style="width: 200px; height: 200px; background: linear-gradient(135deg, #8B0000, #DC143C); color: white; display: flex; align-items: center; justify-content: center; border-radius: 10px;"><i class="fas fa-wine-bottle" style="font-size: 3rem;"></i></div>';
+    ? `<img src="${produto.imagem}" alt="${produto.nome}" class="modal-produto-imagem">`
+    : '<div class="modal-produto-imagem-placeholder"><i class="fas fa-wine-bottle"></i></div>';
 
   modalBody.innerHTML = `
-        <div style="display: flex; gap: 2rem; margin-bottom: 2rem;">
-            ${imagemHtml}
-            <div style="flex: 1;">
-                <h2 style="color: #8B0000; margin-bottom: 1rem;">${
-                  produto.nome
-                }</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <p><strong>Tipo:</strong> ${produto.tipo}</p>
-                    <p><strong>País:</strong> ${produto.pais}</p>
-                    <p><strong>Região:</strong> ${produto.regiao}</p>
-                    <p><strong>Ano:</strong> ${produto.ano}</p>
-                    <p><strong>Graduação:</strong> ${produto.graduacao}%</p>
-                    <p><strong>Volume:</strong> ${produto.volume}ml</p>
+        <div class="modal-produto-container">
+            <div class="modal-produto-header">
+                <div class="modal-produto-imagem-wrapper">
+                    ${imagemHtml}
                 </div>
-                <div style="font-size: 2rem; font-weight: bold; color: #8B0000; margin-bottom: 1rem;">
-                    R$ ${produto.preco.toFixed(2).replace(".", ",")}
+                <div class="modal-produto-info">
+                    <h2 class="modal-produto-titulo">${produto.nome}</h2>
+                    <div class="modal-produto-detalhes">
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Tipo:</span>
+                            <span class="detalhe-valor ${produto.tipo}">${
+    produto.tipo
+  }</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">País:</span>
+                            <span class="detalhe-valor">${produto.pais}</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Região:</span>
+                            <span class="detalhe-valor">${produto.regiao}</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Ano:</span>
+                            <span class="detalhe-valor">${produto.ano}</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Graduação:</span>
+                            <span class="detalhe-valor">${
+                              produto.graduacao
+                            }%</span>
+                        </div>
+                        <div class="detalhe-item">
+                            <span class="detalhe-label">Volume:</span>
+                            <span class="detalhe-valor">${
+                              produto.volume
+                            }ml</span>
+                        </div>
+                    </div>
+                    <div class="modal-produto-preco">
+                        R$ ${produto.preco.toFixed(2).replace(".", ",")}
+                    </div>
+                    <button class="btn-primary modal-add-cart" onclick="adicionarAoCarrinho(${
+                      produto.id
+                    }); fecharModal();">
+                        <i class="fas fa-cart-plus"></i>
+                        Adicionar ao Carrinho
+                    </button>
                 </div>
-                <button class="btn-primary" onclick="adicionarAoCarrinho(${
-                  produto.id
-                }); fecharModal();" style="width: 100%;">
-                    <i class="fas fa-cart-plus"></i>
-                    Adicionar ao Carrinho
-                </button>
             </div>
-        </div>
-        <div>
-            <h3 style="margin-bottom: 1rem;">Descrição</h3>
-            <p style="line-height: 1.6;">${produto.descricao}</p>
+            <div class="modal-produto-descricao">
+                <h3 class="descricao-titulo">Descrição</h3>
+                <p class="descricao-texto">${produto.descricao}</p>
+            </div>
         </div>
     `;
 

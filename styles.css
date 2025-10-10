@@ -189,6 +189,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 0;
+}
+
+.produto-image img:hover {
+  transform: scale(1.05);
 }
 
 .produto-image.no-image {
@@ -823,7 +829,7 @@ body {
   padding: 0;
   border-radius: 15px;
   width: 90%;
-  max-width: 600px;
+  max-width: 700px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
@@ -842,11 +848,12 @@ body {
 }
 
 .modal-header {
-  padding: 1.5rem;
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
   border-bottom: 1px solid #eee;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .modal-header h3 {
@@ -859,14 +866,28 @@ body {
 
 .close {
   color: #aaa;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 0.6rem;
+  margin-right: -0.6rem;
+  margin-top: -0.6rem;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  position: relative;
 }
 
 .close:hover {
   color: #8b0000;
+  background: rgba(139, 0, 0, 0.1);
+  transform: scale(1.05);
 }
 
 .modal-body {
@@ -878,6 +899,172 @@ body {
   gap: 1rem;
   justify-content: flex-end;
   margin-top: 1.5rem;
+}
+
+/* Modal Produto Estilos Melhorados */
+.modal-produto-container {
+  padding: 2rem;
+}
+
+.modal-produto-header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: flex-start;
+}
+
+.modal-produto-imagem-wrapper {
+  flex-shrink: 0;
+}
+
+.modal-produto-imagem {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.modal-produto-imagem:hover {
+  transform: scale(1.02);
+}
+
+.modal-produto-imagem-placeholder {
+  width: 220px;
+  height: 220px;
+  background: linear-gradient(135deg, #8b0000, #dc143c);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-produto-imagem-placeholder i {
+  font-size: 3.5rem;
+  opacity: 0.8;
+}
+
+.modal-produto-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-produto-titulo {
+  color: #8b0000;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+.modal-produto-detalhes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border-left: 4px solid #8b0000;
+}
+
+.detalhe-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detalhe-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detalhe-valor {
+  font-weight: 500;
+  color: #333;
+  font-size: 1rem;
+}
+
+.detalhe-valor.tinto {
+  color: #8b0000;
+  font-weight: 600;
+}
+
+.detalhe-valor.branco {
+  color: #daa520;
+  font-weight: 600;
+}
+
+.detalhe-valor.rosé {
+  color: #db7093;
+  font-weight: 600;
+}
+
+.detalhe-valor.espumante {
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.modal-produto-preco {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #8b0000;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(135deg, #fff5f5, #ffe5e5);
+  border-radius: 10px;
+  border: 2px solid #8b0000;
+}
+
+.modal-add-cart {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.modal-add-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(139, 0, 0, 0.3);
+}
+
+.modal-produto-descricao {
+  border-top: 1px solid #eee;
+  padding-top: 2rem;
+}
+
+.descricao-titulo {
+  color: #333;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.descricao-titulo::before {
+  content: "📝";
+  font-size: 1.2rem;
+}
+
+.descricao-texto {
+  line-height: 1.7;
+  color: #555;
+  font-size: 1rem;
+  text-align: justify;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #8b0000;
 }
 
 /* Footer */
@@ -984,6 +1171,35 @@ body {
   .search-bar {
     max-width: none;
   }
+
+  /* Modal Responsiva */
+  .modal-produto-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .modal-produto-imagem,
+  .modal-produto-imagem-placeholder {
+    width: 180px;
+    height: 180px;
+  }
+
+  .modal-produto-detalhes {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .modal-produto-titulo {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .modal-produto-container {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1009,5 +1225,35 @@ body {
   .btn-danger {
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
+  }
+
+  /* Modal Mobile */
+  .modal-produto-container {
+    padding: 1rem;
+  }
+
+  .modal-produto-imagem,
+  .modal-produto-imagem-placeholder {
+    width: 150px;
+    height: 150px;
+  }
+
+  .modal-produto-titulo {
+    font-size: 1.3rem;
+  }
+
+  .modal-produto-preco {
+    font-size: 1.8rem;
+    padding: 0.8rem;
+  }
+
+  .modal-add-cart {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .descricao-texto {
+    font-size: 0.9rem;
+    padding: 0.8rem;
   }
 }
