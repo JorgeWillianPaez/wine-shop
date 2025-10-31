@@ -191,7 +191,7 @@ function criarCardProduto(produto) {
   card.dataset.tipo = produto.tipo;
 
   const imagemHtml = produto.imagem
-    ? `<img src="${produto.imagem}" alt="${produto.nome}" onerror="this.parentElement.classList.add('no-image'); this.style.display='none';">`
+    ? `<img src="${produto.imagem}" alt="${produto.nome}" onerror="this.parentElement.classList.add('no-image'); this.style.display='none';" loading="lazy">`
     : '<i class="fas fa-wine-bottle"></i>';
 
   card.innerHTML = `
@@ -223,16 +223,36 @@ function criarCardProduto(produto) {
     }
   });
 
+  // Adicionar animação de entrada
+  card.style.opacity = "0";
+  card.style.transform = "translateY(20px)";
+
+  setTimeout(() => {
+    card.style.transition = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
+    card.style.opacity = "1";
+    card.style.transform = "translateY(0)";
+  }, 100);
+
   return card;
 }
 
 function filtrarProdutos(tipo) {
   const cards = document.querySelectorAll(".produto-card");
-  cards.forEach((card) => {
+
+  cards.forEach((card, index) => {
     if (tipo === "todos" || card.dataset.tipo === tipo) {
       card.style.display = "block";
+      // Adicionar animação escalonada
+      setTimeout(() => {
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, index * 100);
     } else {
-      card.style.display = "none";
+      card.style.opacity = "0";
+      card.style.transform = "translateY(20px)";
+      setTimeout(() => {
+        card.style.display = "none";
+      }, 300);
     }
   });
 }
@@ -822,6 +842,9 @@ function mostrarNotificacao(mensagem, tipo = "info") {
         <div class="notificacao-content">
             <i class="fas ${getIconeNotificacao(tipo)}"></i>
             <span>${mensagem}</span>
+            <button class="notificacao-close" onclick="this.parentElement.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     `;
 
@@ -830,25 +853,53 @@ function mostrarNotificacao(mensagem, tipo = "info") {
     position: "fixed",
     top: "100px",
     right: "20px",
-    padding: "1rem 1.5rem",
-    borderRadius: "8px",
+    padding: "1.2rem 1.8rem",
+    borderRadius: "12px",
     color: "white",
     zIndex: "2001",
     opacity: "0",
     transform: "translateX(100%)",
-    transition: "all 0.3s ease",
+    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
     maxWidth: "400px",
-    boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.2)",
+    backdropFilter: "blur(10px)",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
+    fontWeight: "500",
   });
 
   // Definir cor de fundo baseada no tipo
   const cores = {
-    success: "#28a745",
-    error: "#dc3545",
-    info: "#17a2b8",
-    warning: "#ffc107",
+    success: "linear-gradient(135deg, #059669, #10b981)",
+    error: "linear-gradient(135deg, #dc2626, #ef4444)",
+    info: "linear-gradient(135deg, #0284c7, #0ea5e9)",
+    warning: "linear-gradient(135deg, #d97706, #f59e0b)",
   };
   notificacao.style.background = cores[tipo] || cores.info;
+
+  // Estilizar o botão de fechar
+  const closeBtn = notificacao.querySelector(".notificacao-close");
+  Object.assign(closeBtn.style, {
+    background: "rgba(255, 255, 255, 0.2)",
+    border: "none",
+    borderRadius: "50%",
+    width: "24px",
+    height: "24px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: "1rem",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    color: "white",
+  });
+
+  // Estilizar o conteúdo
+  const content = notificacao.querySelector(".notificacao-content");
+  Object.assign(content.style, {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.8rem",
+  });
 
   document.body.appendChild(notificacao);
 
@@ -858,7 +909,7 @@ function mostrarNotificacao(mensagem, tipo = "info") {
     notificacao.style.transform = "translateX(0)";
   }, 100);
 
-  // Remover após 3 segundos
+  // Remover após 4 segundos
   setTimeout(() => {
     notificacao.style.opacity = "0";
     notificacao.style.transform = "translateX(100%)";
@@ -866,8 +917,8 @@ function mostrarNotificacao(mensagem, tipo = "info") {
       if (notificacao.parentNode) {
         notificacao.parentNode.removeChild(notificacao);
       }
-    }, 300);
-  }, 3000);
+    }, 400);
+  }, 4000);
 }
 
 function getIconeNotificacao(tipo) {

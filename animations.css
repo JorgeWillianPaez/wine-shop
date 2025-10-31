@@ -1,0 +1,298 @@
+/* Animações avançadas e efeitos especiais para WineShop */
+
+/* Pulse effect para elementos importantes */
+@keyframes premium-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+  }
+}
+
+/* Shine effect para botões premium */
+@keyframes shine {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* Floating animation para elementos decorativos */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Gradient animation para backgrounds */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Loading skeleton para cards */
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+/* Aplicar animações */
+.cta-button:hover {
+  animation: premium-pulse 1.5s infinite;
+}
+
+.logo i {
+  animation: float 3s ease-in-out infinite;
+}
+
+.hero {
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Efeito de shimmer para loading */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 400px 100%;
+  animation: skeleton-loading 1.2s ease-in-out infinite;
+}
+
+/* Hover effects mais sofisticados */
+.produto-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+  pointer-events: none;
+}
+
+.produto-card:hover::after {
+  transform: translateX(100%);
+}
+
+/* Efeito parallax suave para o hero */
+.hero::before {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Transições suaves para mudanças de estado */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de foco mais visível para acessibilidade */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Animação de entrada para elementos quando aparecem na tela */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar animações de entrada */
+.footer-section:nth-child(1) {
+  animation: slideInFromLeft 0.8s ease-out;
+}
+
+.footer-section:nth-child(2) {
+  animation: slideInFromBottom 0.8s ease-out 0.2s both;
+}
+
+.footer-section:nth-child(3) {
+  animation: slideInFromRight 0.8s ease-out 0.4s both;
+}
+
+/* Efeito de typewriter para textos especiais */
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-cursor {
+  from,
+  to {
+    border-right-color: transparent;
+  }
+  50% {
+    border-right-color: #fbbf24;
+  }
+}
+
+/* Smooth scroll behavior para toda a página */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Preloader simples */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #7c2d12, #dc2626);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wine-loader {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(251, 191, 36, 0.3);
+  border-left: 4px solid #fbbf24;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Efeitos de partículas para o background */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 50%;
+  animation: particle-float 6s infinite ease-in-out;
+}
+
+@keyframes particle-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Media queries para animações em dispositivos móveis */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support (preparação futura) */
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background: linear-gradient(90deg, #2d3748 25%, #1a202c 50%, #2d3748 75%);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .produto-card {
+    border: 2px solid #000;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-danger {
+    border: 2px solid currentColor;
+  }
+}

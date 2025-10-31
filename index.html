@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WineShop - Sua Loja de Vinhos</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="animations.css" />
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
@@ -35,11 +36,15 @@
     <section class="hero">
       <div class="hero-content">
         <h2>Descubra os Melhores Vinhos</h2>
-        <p>Seleção premium de vinhos nacionais e importados</p>
+        <p>
+          Seleção premium de vinhos nacionais e importados para paladares
+          exigentes
+        </p>
         <button
           class="cta-button"
-          onclick="document.getElementById('produtos').scrollIntoView()"
+          onclick="document.getElementById('produtos').scrollIntoView({behavior: 'smooth'})"
         >
+          <i class="fas fa-wine-glass-alt"></i>
           Ver Catálogo
         </button>
       </div>
@@ -48,13 +53,23 @@
     <!-- Produtos Section -->
     <section id="produtos" class="produtos-section">
       <div class="container">
-        <h2>Nossos Vinhos</h2>
+        <h2>Nossa Coleção Premium</h2>
         <div class="filters">
-          <button class="filter-btn active" data-filter="todos">Todos</button>
-          <button class="filter-btn" data-filter="tinto">Tinto</button>
-          <button class="filter-btn" data-filter="branco">Branco</button>
-          <button class="filter-btn" data-filter="rosé">Rosé</button>
-          <button class="filter-btn" data-filter="espumante">Espumante</button>
+          <button class="filter-btn active" data-filter="todos">
+            <i class="fas fa-wine-bottle"></i> Todos
+          </button>
+          <button class="filter-btn" data-filter="tinto">
+            <i class="fas fa-circle" style="color: #7c2d12"></i> Tinto
+          </button>
+          <button class="filter-btn" data-filter="branco">
+            <i class="fas fa-circle" style="color: #fbbf24"></i> Branco
+          </button>
+          <button class="filter-btn" data-filter="rosé">
+            <i class="fas fa-circle" style="color: #ec4899"></i> Rosé
+          </button>
+          <button class="filter-btn" data-filter="espumante">
+            <i class="fas fa-circle" style="color: #06b6d4"></i> Espumante
+          </button>
         </div>
         <div id="produtos-grid" class="produtos-grid">
           <!-- Produtos serão carregados via JavaScript -->
